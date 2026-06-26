@@ -1,0 +1,76 @@
+## Información del proyecto
+**Nombre del proyecto:** Ilusión Cinética Interactiva: Estudio sistémico de Op Art
+**Autor/a:** Luna Queulo
+**Descripción general:** Una obra de arte generativo e interactivo programada en p5.js que explora las ilusiones ópticas del movimiento (*Op Art*). El sistema transiciona por tres estados lógicos donde una malla geométrica reacciona dinámicamente al cursor del usuario tanto visual como acústicamente.
+
+---
+
+##  Descripción objetiva
+**Qué es el proyecto:** Es una instalación artística digital interactiva basada en web, estructurada mediante una máquina de estados lógicos.
+**Qué se ve en pantalla:** Una interfaz de 600x600 píxeles que varía según el estado:
+  **Estado 1:** Una pantalla de inicio negra con un botón central y una malla estática de elipses de fondo gris.
+  **Estado 2:** Una matriz interactiva de formas que pulsan y se transforman en tiempo real, alterando sus colores según la posición del cursor.
+  **Estado 3:** Una pantalla de finalización con fondo rojizo oscuro, rectángulos estáticos rotados a 45 grados y un cuadro de texto central indicando el fin de la experiencia.
+**Qué elementos visuales aparecen:** Elipses, rectángulos, texto informativo, botones de la interfaz de usuario de p5.dom, cambios cromáticos severos (blanco, negro, rojo) y líneas con grosores dinámicos.
+**Qué inputs utiliza:** * Movimiento del cursor (`mouseX`, `mouseY`).
+  * Clic del mouse (`mousePressed`).
+  * Entrada de teclado (Teclas `ESPACIO` y `R`).
+  * Interacción directa con un elemento de botón HTML.
+**Qué outputs genera:** * Renderizado gráfico continuo a 60 FPS en un elemento `<canvas>`.
+  * Síntesis de audio en tiempo real mediante un oscilador de ondas senoidales.
+
+---
+
+## Descripción conceptual
+**Idea central:** El proyecto busca explorar la tensión entre el orden absoluto y el caos responsivo, demostrando cómo la interactividad humana rompe la rigidez de un sistema estructurado artificialmente.
+**Corriente o referente de diseño:** **Op Art (Arte Óptico)** y el **Cinestismo**. Se inspira en la estimulación visual abstracta que simula tridimensionalidad y movimiento a través de la repetición.
+**Referentes visuales, históricos o teóricos:** Retoma el trabajo geométrico y de contrastes duros de artistas como **Victor Vasarely** y **Bridget Riley**, adaptando sus composiciones estáticas de mediados del siglo XX a un ecosistema digital dinámico y reactivo.
+**Principio de diseño explorado:** Contraste cromático absoluto, ritmo visual mediante repetición matricial, deformación de la escala/proporción y la sinestesia (asociación directa entre el estímulo visual y la frecuencia sonora).
+
+---
+
+## Sistema computacional
+**Inputs:**
+  * Coordenadas bidimensionales del mouse (`mouseX`, `mouseY`).
+  * Evento de clic para alternar el fondo (`colorFondo`).
+  * Eventos de teclado: `keyCode === 32` (Espacio) y `key === 'r'/'R'`.
+**Procesos:**
+  * **Mapeo matemático:** Conversión de posiciones espaciales a grosores de línea (`map()`) y frecuencias de audio.
+  * **Cálculo de distancias:** Medición euclidiana (`dist()`) entre el cursor y cada celda de la malla.
+  * **Funciones trigonométricas:** Uso de `sin()` y `cos()` combinado con `frameCount` para generar ondulaciones, pulsaciones biológicas y oscilaciones de audio de tipo `'sine'`.
+  * **Transformaciones de matriz:** Uso de `push()`, `pop()`, `translate()` y `rotate()` autónomos para cada elemento de la malla.
+**Estados:**
+  * `estado = 1`: Orden Absoluto / Pantalla de inicio estática.
+  * `estado = 2`: Experiencia Interactiva activa (cálculos reactivos y sonido encendido).
+  * `estado = 3`: Caos Congelado / Equilibrio absoluto (Pausa visual y silencio total).
+**Eventos:**
+  * `iniciarExperiencia()` disparado por el botón para cambiar al estado 2.
+  * `mousePressed()` en estado 2 para conmutar `colorFondo` entre 0 y 245.
+  * `keyPressed()` para gatillar la congelación (Espacio) o reiniciar el software (R).
+**Outputs:** * Modificación de pixeles en la ventana de dibujo de p5.js.
+  * Señal de audio analógica simulada a través de las funciones `oscilador.freq()` y `oscilador.amp()`.
+
+---
+
+##  Explicación de la interacción
+**Qué datos entran al sistema:** Las coordenadas vectoriales del mouse entran constantemente al bucle principal del programa (`draw()`).
+**Cómo se procesan:** El código calcula de manera anidada (filas y columnas) si la posición del mouse se encuentra dentro de un radio crítico menor a 70 píxeles respecto al centro de cada celda individual.
+**Cómo se transforman:** Si el mouse se acerca a un elemento, la elipse geométrica estándar se transforma en un rectángulo deformado que altera su ancho y alto proporcionalmente a la cercanía, añadiendo además una vibración aleatoria (`random(-2,2)`) y rotando en dirección al cursor usando la función arcotangente (`atan2()`).
+**Qué respuestas producen:** El usuario percibe una perturbación visual inmediata (como una onda que deforma la malla) coordinada en tiempo real con un sonido envolvente que se vuelve más agudo y claro a menor distancia del cursor, creando una experiencia inmersiva de causa y efecto.
+
+---
+
+## Recursos multimedia utilizados
+**Tipo de recurso utilizado:** Sintetizador de audio nativo mediante hardware virtualizado (`p5.Oscillator` de tipo `sine`).
+**Función que cumple dentro del proyecto:** Actúa como el elemento multisensorial obligatorio de la entrega. No es mero acompañamiento, sino una traducción acústica de la geometría: proporciona retroalimentación inmediata de proximidad, incrementando la inmersión del usuario y dotando a la ilusión óptica de una "textura sonora".
+
+---
+
+## Registro visual
+**referentes: 
+
+##  Reflexión final
+**Principales decisiones tomadas:** Se optó por una máquina de estados numéricos rígida para garantizar que el sonido y la experiencia interactiva no abrumaran al espectador de inmediato, permitiendo un momento de introducción estática (Estado 1) y una resolución de descanso (Estado 3). Asimismo, se decidió restringir el volumen máximo del oscilador a `0.05` para asegurar una experiencia de usuario cómoda y no invasiva.
+**Dificultades encontradas:** Uno de los mayores retos técnicos consistió en aislar las transformaciones geométricas individuales (vibración, rotación y escalado) de cada celda sin alterar el resto de la matriz. Esto se solucionó exitosamente mediante el uso correcto y encapsulado de los bloques de matriz `push()` y `pop()`.
+**Aprendizajes obtenidos:** Se profundizó de manera práctica en la integración de librerías de audio generativo con cálculos matemáticos concurrentes (trigonometría y distancias), entendiendo cómo la programación lógica puede simular comportamientos orgánicos, fluidos y cinéticos en interfaces bidimensionales.
+aaaa
