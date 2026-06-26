@@ -66,9 +66,8 @@
 
 ---
 
-## Registro visual
+## Registro visual 
 **referentes: ![Texto descriptivo](images.jpg)
-no me deja subir imagenes :( pero las que queria poner son: 
 Victor VASARELY (1906-1997)
 Gyemant-Zett
 1972
