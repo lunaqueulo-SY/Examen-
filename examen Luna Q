@@ -68,8 +68,10 @@
 
 ## Registro visual
 **referentes: ![Texto descriptivo](images.jpg)
-
-
+no me deja subir imagenes :( pero las que queria poner son: 
+Victor VASARELY (1906-1997)
+Gyemant-Zett
+1972
 
 ##  Reflexión final
 **Principales decisiones tomadas:** Se optó por una máquina de estados numéricos rígida para garantizar que el sonido y la experiencia interactiva no abrumaran al espectador de inmediato, permitiendo un momento de introducción estática (Estado 1) y una resolución de descanso (Estado 3). Asimismo, se decidió restringir el volumen máximo del oscilador a `0.05` para asegurar una experiencia de usuario cómoda y no invasiva.
